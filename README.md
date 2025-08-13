@@ -3,3 +3,4 @@ process:
  2. floorplan.png and locations.json files should be in data folder
  3. to work this program, index.html, data folder with floorplan.png and locations.json are needed.
  4. I uploaded admin-secret.html to update the map
+ 5. index.html 은 '배포용'이고 admin-secre.html 은 '관리자용'이다. 관리자용으로 floorplan.png and locations.json files 을 만들어 data폴더에 저장하고, 배포용을 index.html 로 업로드 해서 작동되고 있다
