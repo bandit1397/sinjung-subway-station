@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>점포 위치 검색</title>
+<style>
+body { font-family: Arial; text-align:center; margin:20px; background:#f9f9f9; }
+#floorplanContainer { position:relative; width:80vw; height:60vw; margin:0 auto; border:2px solid #333; background:#fff; max-width:1200px; max-height:900px; }
+#floorplanImage { width:100%; height:100%; object-fit:contain; display:block; }
+.marker { position:absolute; width:18px; height:18px; background:red; border-radius:50%; transform:translate(-50%,-50%); cursor:pointer; border:2px solid white; box-shadow:0 0 3px rgba(0,0,0,0.3); }
+.marker.highlight { animation: blink 1.5s ease-in-out 3; box-shadow:0 0 12px 4px gold; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+</style>
+</head>
+<body>
+
+<h1>점포 위치 검색</h1>
+
+<input type="text" id="searchInput" placeholder="점포명 또는 추가 정보 검색"/>
+<button onclick="searchMarker()">검색</button>
+<button onclick="clearSearchHighlight()">초기화</button>
+
+<div id="floorplanContainer">
+  <img id="floorplanImage" src="data/floorplan.png" alt="floorplan"/>
+</div>
+
+<script>
+const floorplanContainer = document.getElementById('floorplanContainer');
+const floorplanImage = document.getElementById('floorplanImage');
+const searchInput = document.getElementById('searchInput');
+
+let storeMarkers=[];
+let searchHighlightedIndex=null;
+
+// JSON 불러오기
+fetch('data/locations.json')
+  .then(res=>res.json())
+  .then(data=>{ storeMarkers=data; renderMarkers(); })
+  .catch(err=>console.error('locations.json 로드 실패', err));
+
+// 마커 렌더링
+function renderMarkers(){
+  floorplanContainer.querySelectorAll('.marker').forEach(m=>m.remove());
+  storeMarkers.forEach((m,idx)=>{
+    const div=document.createElement('div');
+    div.className='marker';
+    div.style.left=m.xPercent+'%';
+    div.style.top=m.yPercent+'%';
+    div.title = m.name + (m.info?'\n'+m.info:'');
+    if(idx===searchHighlightedIndex) div.classList.add('highlight');
+    floorplanContainer.appendChild(div);
+  });
+}
+
+// 검색
+function searchMarker(){
+  const keyword = searchInput.value.trim().toLowerCase();
+  if(!keyword) return alert('검색어를 입력하세요.');
+  const idx = storeMarkers.findIndex(m=>
+    m.name.toLowerCase().includes(keyword) ||
+    (m.info && m.info.toLowerCase().includes(keyword))
+  );
+  if(idx===-1) return alert('일치하는 점포가 없습니다.');
+  searchHighlightedIndex=idx;
+  renderMarkers();
+}
+
+// 검색 초기화
+function clearSearchHighlight(){
+  searchHighlightedIndex=null;
+  renderMarkers();
+  searchInput.value='';
+}
+</script>
+
+</body>
+</html>
