@@ -10,26 +10,15 @@ body { font-family: Arial; text-align:center; margin:20px; background:#f9f9f9; }
 
   /* 별 모양 마커 */
   .marker {
-    position:absolute;
-    width:15px;   /* 마커 크기 변경 가능 */
-    height:15px;  /* 마커 크기 변경 가능 */
-    background:red;
-    clip-path: polygon(
-      12px 0px,
-      14px 8px,
-      24px 8px,
-      16px 14px,
-      19px 24px,
-      12px 18px,
-      5px 24px,
-      8px 14px,
-      0px 8px,
-      10px 8px
-    );
+    position: absolute;
+    width: 18px;   /* 원하는 크기로 조절 가능 */
+    height: 18px;  /* 원하는 크기로 조절 가능 */
+    background: red;  /* 색상 */
+    border-radius: 50%;  /* 동그라미 */
     transform: translate(-50%, -50%);
-    cursor:pointer;
-    border:1px solid white;
-    box-shadow:0 0 2px rgba(0,0,0,0.3);
+    cursor: pointer;
+    border: 1px solid white;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
   }
 .marker.highlight { animation: blink 1.5s ease-in-out 3; box-shadow:0 0 12px 4px gold; }
 @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
@@ -98,6 +87,7 @@ function clearSearchHighlight(){
 
 </body>
 </html>
+
 
 
 
