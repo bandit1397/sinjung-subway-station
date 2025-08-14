@@ -20,11 +20,14 @@ body { font-family: Arial; text-align:center; margin:20px; background:#f9f9f9; }
     border: 1px solid white;
     box-shadow: 0 0 2px rgba(0,0,0,0.3);
   }
-.marker.highlight { 
-  animation: blink 1.5s ease-in-out 3; 
-  box-shadow:0 0 12px 4px blue !important; 
+.marker.highlight {
+  box-shadow: 0 0 12px 4px blue;
+  animation: blink 1.5s ease-in-out 3;
 }
-@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
 </style>
 </head>
 <body>
@@ -90,6 +93,7 @@ function clearSearchHighlight(){
 
 </body>
 </html>
+
 
 
 
